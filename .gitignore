@@ -16,6 +16,9 @@
 
 # Gradle
 .gradle
+gradlew
+gradlew.bat
+/gradle/wrapper/gradle-wrapper.properties
 
 # Idea
 .idea
