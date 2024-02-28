@@ -32,9 +32,10 @@ public class StudentRegistrationFormPage {
     public StudentRegistrationFormPage openPageWithClosingBottomAds() {
         open("/automation-practice-form");
 
-        formHeaderText.shouldHave(text("Student Registration Form"));
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
+
+        formHeaderText.shouldHave(text("Student Registration Form"));
 
         return this;
     }
