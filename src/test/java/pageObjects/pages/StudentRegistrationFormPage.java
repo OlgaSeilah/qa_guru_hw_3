@@ -26,7 +26,8 @@ public class StudentRegistrationFormPage {
             optionInCityDropdown = $("#react-select-4-option-0"),
             submitBtn = $("#submit");
 
-    private final ElementsCollection dropdowns = $$("#stateCity-wrapper .css-1wa3eu0-placeholder");
+    private final ElementsCollection dropdowns = $$("#stateCity-wrapper .css-1wa3eu0-placeholder"),
+            statesCitiesOptions = $$(".css-11unzgr div");
 
 
     public StudentRegistrationFormPage openPageWithClosingBottomAds() {
@@ -125,6 +126,12 @@ public class StudentRegistrationFormPage {
     public StudentRegistrationFormPage chooseOptionInCityDropdown() {
         optionInCityDropdown.click();
 
+
+        return this;
+    }
+
+    public StudentRegistrationFormPage chooseOptionInStateCityDropdown(String value) {
+        statesCitiesOptions.findBy(text(value)).scrollIntoView(false).click();
 
         return this;
     }
