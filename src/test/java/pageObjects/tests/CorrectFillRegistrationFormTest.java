@@ -1,9 +1,17 @@
 package pageObjects.tests;
 
 
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Test;
 import pageObjects.components.ResultModalWindow;
 import pageObjects.pages.StudentRegistrationFormPage;
+import pageObjects.testData.enums.City;
+import pageObjects.testData.enums.States;
+
+import java.util.Locale;
+
+import static pageObjects.testData.TestData.*;
+import static pageObjects.utils.RandomUtils.getRandomGender;
 
 public class CorrectFillRegistrationFormTest extends BaseTest {
 
@@ -12,21 +20,22 @@ public class CorrectFillRegistrationFormTest extends BaseTest {
 
     @Test
     public void successfulFillForm() {
-        String firstName = "Name";
-        String lastName = "Secondname";
-        String email = "qwerty@qqq.ru";
-        String gender = "Other";
-        String phoneNumber = "1234567890";
-        String birthMonth = "March";
-        String birthYear = "2000";
-        String birthDay = "10";
-        String subject = "Arts";
-        String hobby = "Music";
-        String picturePath = "leaves.jpg";
-        String pictureName = "leaves.jpg";
-        String address = "Some street, 13";
-        String state = "NCR";
-        String city = "Delhi";
+        Faker faker = new Faker(Locale.forLanguageTag("pl"));
+
+        String firstName = faker.name().firstName();
+        String lastName = faker.name().lastName();
+        String email = faker.internet().emailAddress();
+        String gender = getRandomGender();
+        String phoneNumber = faker.phoneNumber().subscriberNumber(10);
+        String birthMonth = getRandomMonth();
+        String birthYear = getRandomYear();
+        String birthDay = getRandomDay();
+        String subject = getRandomSubject();
+        String hobby = getRandomHobby();
+        String picturePathAndName = getPicturePathAndName();
+        String address = faker.address().streetAddress();
+        States state = getRandomState();
+        City city = getCityForState(state);
 
 
         studentRegistrationFormPage.openPageWithClosingBottomAds()
@@ -39,12 +48,12 @@ public class CorrectFillRegistrationFormTest extends BaseTest {
                 .chooseBirthDate(birthMonth, birthYear, birthDay)
                 .setSubject(subject)
                 .setHobby(hobby)
-                .uploadPicture(picturePath)
+                .uploadPicture(picturePathAndName)
                 .setCurrentAddress(address)
                 .openDropdown("Select State")
-                .chooseOptionInStateDropdown()
+                .chooseOptionInStateCityDropdown(state.getValue())
                 .openDropdown("Select City")
-                .chooseOptionInCityDropdown()
+                .chooseOptionInStateCityDropdown(city.getValue())
                 .clickSubmitBtn();
 
         resultModalWindow.checkModalWindowIsVisible()
@@ -55,7 +64,7 @@ public class CorrectFillRegistrationFormTest extends BaseTest {
                 .checkRowHasResult("Date of Birth", birthDay + " " + birthMonth + "," + birthYear)
                 .checkRowHasResult("Subjects", subject)
                 .checkRowHasResult("Hobbies", hobby)
-                .checkRowHasResult("Picture", pictureName)
+                .checkRowHasResult("Picture", picturePathAndName)
                 .checkRowHasResult("Address", address)
                 .checkRowHasResult("State and City", state + " " + city);
     }
