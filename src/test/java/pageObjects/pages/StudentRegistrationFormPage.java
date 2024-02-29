@@ -27,15 +27,17 @@ public class StudentRegistrationFormPage {
             submitBtn = $("#submit");
 
     private final ElementsCollection dropdowns = $$("#stateCity-wrapper .css-1wa3eu0-placeholder"),
-            statesCitiesOptions = $$(".css-11unzgr div");
+            statesCitiesOptions = $$(".css-11unzgr div"),
+            hobbyCheckboxes = $$(".custom-checkbox");
 
 
     public StudentRegistrationFormPage openPageWithClosingBottomAds() {
         open("/automation-practice-form");
 
-        formHeaderText.shouldHave(text("Student Registration Form"));
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
+
+        formHeaderText.shouldHave(text("Student Registration Form"));
 
         return this;
     }
@@ -91,7 +93,7 @@ public class StudentRegistrationFormPage {
     }
 
     public StudentRegistrationFormPage setHobby(String hobby) {
-        hobbiesWrapper.$(byText(hobby)).click();
+        hobbyCheckboxes.findBy(text(hobby)).click();
 
         return this;
     }

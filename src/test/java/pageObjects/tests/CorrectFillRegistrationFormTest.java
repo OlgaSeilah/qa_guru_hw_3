@@ -1,17 +1,13 @@
 package pageObjects.tests;
 
 
-import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Test;
 import pageObjects.components.ResultModalWindow;
 import pageObjects.pages.StudentRegistrationFormPage;
 import pageObjects.testData.enums.City;
 import pageObjects.testData.enums.States;
 
-import java.util.Locale;
-
 import static pageObjects.testData.TestData.*;
-import static pageObjects.utils.RandomUtils.getRandomGender;
 
 public class CorrectFillRegistrationFormTest extends BaseTest {
 
@@ -20,20 +16,18 @@ public class CorrectFillRegistrationFormTest extends BaseTest {
 
     @Test
     public void successfulFillForm() {
-        Faker faker = new Faker(Locale.forLanguageTag("pl"));
-
-        String firstName = faker.name().firstName();
-        String lastName = faker.name().lastName();
-        String email = faker.internet().emailAddress();
-        String gender = getRandomGender();
-        String phoneNumber = faker.phoneNumber().subscriberNumber(10);
+        String firstName = getFirstName();
+        String lastName = getLastName();
+        String email = getEmail();
+        String gender = getGender();
+        String phoneNumber = getPhoneNumber(10);
         String birthMonth = getRandomMonth();
         String birthYear = getRandomYear();
         String birthDay = getRandomDay();
         String subject = getRandomSubject();
         String hobby = getRandomHobby();
         String picturePathAndName = getPicturePathAndName();
-        String address = faker.address().streetAddress();
+        String address = getAddress();
         States state = getRandomState();
         City city = getCityForState(state);
 

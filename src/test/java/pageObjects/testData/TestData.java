@@ -7,15 +7,16 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static java.lang.String.valueOf;
+import static java.util.Locale.forLanguageTag;
 
 public class TestData {
 
     public static String getFirstName() {
-        return new Faker().name().firstName();
+        return new Faker(forLanguageTag("pl")).name().firstName();
     }
 
     public static String getLastName() {
-        return new Faker().name().lastName();
+        return new Faker(forLanguageTag("pl")).name().lastName();
     }
 
     public static String getEmail() {
@@ -34,7 +35,7 @@ public class TestData {
     }
 
     public static String getAddress() {
-        return new Faker()
+        return new Faker(forLanguageTag("pl"))
                 .address()
                 .fullAddress();
     }
