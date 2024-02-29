@@ -3,8 +3,7 @@ package pageObjects.testData.enums;
 public enum Hobbies {
     READING("Reading"),
     SPORTS("Sports"),
-    MUSIC("Music"),
-    TRAVEL("Travel");
+    MUSIC("Music");
 
     private String value;
 
